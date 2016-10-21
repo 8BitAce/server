@@ -423,18 +423,7 @@ class Activity implements IExtension {
 	 * @return array|false
 	 */
 	public function getNavigation() {
-		$l = $this->getL10N();
-		return [
-			'apps' => [],
-			'top' => [
-				self::FILTER_SHARES => [
-					'id' => self::FILTER_SHARES,
-					'icon' => 'icon-share',
-					'name' => (string) $l->t('File shares'),
-					'url' => $this->URLGenerator->linkToRoute('activity.Activities.showList', ['filter' => self::FILTER_SHARES]),
-				],
-			],
-		];
+		return false;
 	}
 
 	/**
@@ -444,7 +433,7 @@ class Activity implements IExtension {
 	 * @return boolean
 	 */
 	public function isFilterValid($filterValue) {
-		return $filterValue === self::FILTER_SHARES;
+		return false;
 	}
 
 	/**
@@ -456,10 +445,6 @@ class Activity implements IExtension {
 	 * @return array|false
 	 */
 	public function filterNotificationTypes($types, $filter) {
-		switch ($filter) {
-			case self::FILTER_SHARES:
-				return array_intersect([self::TYPE_SHARED, self::TYPE_REMOTE_SHARE], $types);
-		}
 		return false;
 	}
 
@@ -473,12 +458,6 @@ class Activity implements IExtension {
 	 * @return array|false
 	 */
 	public function getQueryForFilter($filter) {
-		if ($filter === self::FILTER_SHARES) {
-			return [
-				'`app` = ?',
-				[self::FILES_SHARING_APP,],
-			];
-		}
 		return false;
 	}
 
