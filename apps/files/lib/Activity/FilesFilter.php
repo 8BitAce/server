@@ -60,7 +60,7 @@ class FilesFilter implements IFilter {
 	 * @since 9.2.0
 	 */
 	public function getPriority() {
-		return 50;
+		return 40;
 	}
 
 	/**
