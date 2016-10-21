@@ -443,40 +443,21 @@ class Manager implements IManager {
 
 	/**
 	 * @return array
+	 * @deprecated 9.2.0 - Use getFilters() instead
 	 */
 	public function getNavigation() {
-		$entries = array(
-			'apps' => array(),
-			'top' => array(),
-		);
-		foreach ($this->getExtensions() as $c) {
-			$additionalEntries = $c->getNavigation();
-			if (is_array($additionalEntries)) {
-				$entries['apps'] = array_merge($entries['apps'], $additionalEntries['apps']);
-				$entries['top'] = array_merge($entries['top'], $additionalEntries['top']);
-			}
-		}
-
-		return $entries;
+		return [
+			'apps' => [],
+			'top' => [],
+		];
 	}
 
 	/**
 	 * @param string $filterValue
 	 * @return boolean
+	 * @deprecated 9.2.0 - Use getFilterById() instead
 	 */
 	public function isFilterValid($filterValue) {
-		if (isset($this->validFilters[$filterValue])) {
-			return $this->validFilters[$filterValue];
-		}
-
-		foreach ($this->getExtensions() as $c) {
-			if ($c->isFilterValid($filterValue) === true) {
-				$this->validFilters[$filterValue] = true;
-				return true;
-			}
-		}
-
-		$this->validFilters[$filterValue] = false;
 		return false;
 	}
 
@@ -484,49 +465,19 @@ class Manager implements IManager {
 	 * @param array $types
 	 * @param string $filter
 	 * @return array
+	 * @deprecated 9.2.0 - Use getFilterById()->filterTypes() instead
 	 */
 	public function filterNotificationTypes($types, $filter) {
-		if (!$this->isFilterValid($filter)) {
-			return $types;
-		}
-
-		foreach ($this->getExtensions() as $c) {
-			$result = $c->filterNotificationTypes($types, $filter);
-			if (is_array($result)) {
-				$types = $result;
-			}
-		}
 		return $types;
 	}
 
 	/**
 	 * @param string $filter
 	 * @return array
+	 * @deprecated 9.2.0 - Use getFilterById() instead
 	 */
 	public function getQueryForFilter($filter) {
-		if (!$this->isFilterValid($filter)) {
-			return [null, null];
-		}
-
-		$conditions = array();
-		$parameters = array();
-
-		foreach ($this->getExtensions() as $c) {
-			$result = $c->getQueryForFilter($filter);
-			if (is_array($result)) {
-				list($condition, $parameter) = $result;
-				if ($condition && is_array($parameter)) {
-					$conditions[] = $condition;
-					$parameters = array_merge($parameters, $parameter);
-				}
-			}
-		}
-
-		if (empty($conditions)) {
-			return array(null, null);
-		}
-
-		return array(' and ((' . implode(') or (', $conditions) . '))', $parameters);
+		return [null, null];
 	}
 
 	/**

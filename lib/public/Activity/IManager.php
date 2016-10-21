@@ -201,7 +201,7 @@ interface IManager {
 	/**
 	 * @return array
 	 * @since 8.0.0
-	 * @deprecated Use registerFilter() instead
+	 * @deprecated 9.2.0 - Use getFilters() instead
 	 */
 	public function getNavigation();
 
@@ -209,7 +209,7 @@ interface IManager {
 	 * @param string $filterValue
 	 * @return boolean
 	 * @since 8.0.0
-	 * @deprecated Use registerFilter() instead
+	 * @deprecated 9.2.0 - Use getFilterById() instead
 	 */
 	public function isFilterValid($filterValue);
 
@@ -218,7 +218,7 @@ interface IManager {
 	 * @param string $filter
 	 * @return array
 	 * @since 8.0.0
-	 * @deprecated Use registerFilter() instead
+	 * @deprecated 9.2.0 - Use getFilterById()->filterTypes() instead
 	 */
 	public function filterNotificationTypes($types, $filter);
 
@@ -226,7 +226,7 @@ interface IManager {
 	 * @param string $filter
 	 * @return array
 	 * @since 8.0.0
-	 * @deprecated Use registerFilter() instead
+	 * @deprecated 9.2.0 - Use getFilterById() instead
 	 */
 	public function getQueryForFilter($filter);
 

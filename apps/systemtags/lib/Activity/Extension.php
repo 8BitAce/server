@@ -270,52 +270,6 @@ class Extension implements IExtension {
 	}
 
 	/**
-	 * The extension can define additional navigation entries. The array returned has to contain two keys 'top'
-	 * and 'apps' which hold arrays with the relevant entries.
-	 * If no further entries are to be added false is no be returned.
-	 *
-	 * @return array|false
-	 */
-	public function getNavigation() {
-		return false;
-	}
-
-	/**
-	 * The extension can check if a custom filter (given by a query string like filter=abc) is valid or not.
-	 *
-	 * @param string $filterValue
-	 * @return boolean
-	 */
-	public function isFilterValid($filterValue) {
-		return false;
-	}
-
-	/**
-	 * The extension can filter the types based on the filter if required.
-	 * In case no filter is to be applied false is to be returned unchanged.
-	 *
-	 * @param array $types
-	 * @param string $filter
-	 * @return array|false
-	 */
-	public function filterNotificationTypes($types, $filter) {
-		return false;
-	}
-
-	/**
-	 * For a given filter the extension can specify the sql query conditions including parameters for that query.
-	 * In case the extension does not know the filter false is to be returned.
-	 * The query condition and the parameters are to be returned as array with two elements.
-	 * E.g. return array('`app` = ? and `message` like ?', array('mail', 'ownCloud%'));
-	 *
-	 * @param string $filter
-	 * @return array|false
-	 */
-	public function getQueryForFilter($filter) {
-		return false;
-	}
-
-	/**
 	 * @param string $parameter
 	 * @param IL10N $l
 	 * @return string

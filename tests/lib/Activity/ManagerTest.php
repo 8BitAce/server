@@ -143,48 +143,6 @@ class ManagerTest extends TestCase {
 		$this->assertEquals(5, $result);
 	}
 
-	public function testNavigation() {
-		$result = $this->activityManager->getNavigation();
-		$this->assertEquals(4, sizeof($result['apps']));
-		$this->assertEquals(2, sizeof($result['top']));
-	}
-
-	public function testIsFilterValid() {
-		$result = $this->activityManager->isFilterValid('fv01');
-		$this->assertTrue($result);
-
-		$result = $this->activityManager->isFilterValid('InvalidFilter');
-		$this->assertFalse($result);
-	}
-
-	public function testFilterNotificationTypes() {
-		$result = $this->activityManager->filterNotificationTypes(array('NT0', 'NT1', 'NT2', 'NT3'), 'fv01');
-		$this->assertTrue(is_array($result));
-		$this->assertEquals(3, sizeof($result));
-
-		$result = $this->activityManager->filterNotificationTypes(array('NT0', 'NT1', 'NT2', 'NT3'), 'InvalidFilter');
-		$this->assertTrue(is_array($result));
-		$this->assertEquals(4, sizeof($result));
-	}
-
-	public function testQueryForFilter() {
-		// Register twice, to test the created sql part
-		$this->activityManager->registerExtension(function() {
-			return new SimpleExtension();
-		});
-
-		$result = $this->activityManager->getQueryForFilter('fv01');
-		$this->assertEquals(
-			array(
-				' and ((`app` = ? and `message` like ?) or (`app` = ? and `message` like ?))',
-				array('mail', 'ownCloud%', 'mail', 'ownCloud%')
-			), $result
-		);
-
-		$result = $this->activityManager->getQueryForFilter('InvalidFilter');
-		$this->assertEquals(array(null, null), $result);
-	}
-
 	public function getUserFromTokenThrowInvalidTokenData() {
 		return [
 			[null, []],
@@ -489,36 +447,6 @@ class SimpleExtension implements \OCP\Activity\IExtension {
 	public function getGroupParameter($activity) {
 		return 5;
 	}
-
-	public function getNavigation() {
-		return array(
-			'apps' => array('nav1', 'nav2', 'nav3', 'nav4'),
-			'top'  => array('top1', 'top2')
-		);
-	}
-
-	public function isFilterValid($filterValue) {
-		if ($filterValue === 'fv01') {
-			return true;
-		}
-
-		return false;
-	}
-
-	public function filterNotificationTypes($types, $filter) {
-		if ($filter === 'fv01') {
-			unset($types[0]);
-		}
-		return $types;
-	}
-
-	public function getQueryForFilter($filter) {
-		if ($filter === 'fv01') {
-			return array('`app` = ? and `message` like ?', array('mail', 'ownCloud%'));
-		}
-
-		return false;
-	}
 }
 
 class NoOpExtension implements \OCP\Activity\IExtension {
@@ -544,22 +472,6 @@ class NoOpExtension implements \OCP\Activity\IExtension {
 	}
 
 	public function getGroupParameter($activity) {
-		return false;
-	}
-
-	public function getNavigation() {
-		return false;
-	}
-
-	public function isFilterValid($filterValue) {
-		return false;
-	}
-
-	public function filterNotificationTypes($types, $filter) {
-		return false;
-	}
-
-	public function getQueryForFilter($filter) {
 		return false;
 	}
 }
