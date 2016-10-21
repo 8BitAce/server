@@ -247,6 +247,9 @@ class Manager implements IManager {
 	}
 
 	/** @var IFilter[] */
+	protected $filterClasses;
+
+	/** @var IFilter[] */
 	protected $filters;
 
 	/**
@@ -254,19 +257,43 @@ class Manager implements IManager {
 	 * @return void
 	 */
 	public function registerFilter($filter) {
-		$this->filters[$filter] = $filter;
+		$this->filterClasses[$filter] = false;
 	}
 
 	/**
 	 * @return IFilter[]
+	 * @throws \InvalidArgumentException
 	 */
 	public function getFilters() {
-		foreach ($this->filters as $class => $filter) {
-			if (is_string($filter)) {
-				$this->filters[$class] = \OC::$server->query($filter);
+		foreach ($this->filterClasses as $class => $false) {
+			/** @var IFilter $filter */
+			$filter = \OC::$server->query($class);
+
+			if (!$filter instanceof IFilter) {
+				throw new \InvalidArgumentException('Invalid activity filter registered');
 			}
+
+			$this->filters[$filter->getIdentifier()] = $filter;
+
+			unset($this->filterClasses[$class]);
 		}
 		return $this->filters;
+	}
+
+	/**
+	 * @param string $id
+	 * @return IFilter
+	 * @throws \InvalidArgumentException when the filter was not found
+	 * @since 9.2.0
+	 */
+	public function getFilterById($id) {
+		$filters = $this->getFilters();
+
+		if (isset($filters[$id])) {
+			return $filters[$id];
+		}
+
+		throw new \InvalidArgumentException('Requested filter does not exist');
 	}
 
 	/**

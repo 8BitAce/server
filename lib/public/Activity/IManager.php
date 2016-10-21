@@ -124,6 +124,14 @@ interface IManager {
 	public function getFilters();
 
 	/**
+	 * @param string $id
+	 * @return IFilter
+	 * @throws \InvalidArgumentException when the filter was not found
+	 * @since 9.2.0
+	 */
+	public function getFilterById($id);
+
+	/**
 	 * Will return additional notification types as specified by other apps
 	 *
 	 * @param string $languageCode
