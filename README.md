@@ -3,7 +3,7 @@
 [![irc](https://img.shields.io/badge/IRC-%23nextcloud%20on%20freenode-orange.svg)](https://webchat.freenode.net/?channels=nextcloud)
 [![irc](https://img.shields.io/badge/IRC-%23nextcloud--dev%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-dev)
 
-**A safe home for all your data. Access, share and protect your files, calendars, contacts, communication &more at home and in your enterprise.**
+**A safe home for all your data.** Access, share and protect your files, calendars, contacts, communication & more at home and in your enterprise.
 
 ![](https://github.com/nextcloud/screenshots/blob/master/files/filelist.png)
 
@@ -12,8 +12,8 @@
 * :file_folder: **Access your Data** You can store your files, contacts, calendars and more on a server of your choosing.
 * :package: **Sync your Data** You keep your files, contacts, calendars and more synchronized amongst your devices.
 * :arrows_counterclockwise: **Share your Data** …by giving others access to the stuff you want them to see or to collaborate with.
-* :rocket: **Expandable with dozens of Apps** ...like [Calendar](https://github.com/nextcloud/calendar), [Contacts](https://github.com/nextcloud/contacts), [Mail](https://github.com/nextcloud/mail) or or all the ones you can discover in our [App Store](https://apps.nextcloud.com)
-* :lock: **Secturity** …is strong, because of encryption modules, security bug bounty programs and two-factor authentification.
+* :rocket: **Expandable with dozens of Apps** ...like [Calendar](https://github.com/nextcloud/calendar), [Contacts](https://github.com/nextcloud/contacts), [Mail](https://github.com/nextcloud/mail) and all those you can discover in our [App Store](https://apps.nextcloud.com)
+* :lock: **Secturity** with our encryption mechanisms, [security bug bounty program](https://hackerone.com/nextcloud) and two-factor authentification.
 
 
 ## Get your Nextcloud
